@@ -12,50 +12,48 @@ import {
   CardActions,
   Collapse,
   styled,
+  Paper,
+  InputBase,
+  Divider,
 } from "@mui/material";
 // import { ExpandMore } from "@mui/icons-material";
 
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-
+import {  red } from "@mui/material/colors";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShareIcon from "@mui/icons-material/Share";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
 })(({ theme }) => ({
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
+  marginLeft: "auto",
+  transition: theme.transitions.create("transform", {
     duration: theme.transitions.duration.shortest,
   }),
   variants: [
     {
       props: ({ expand }) => !expand,
       style: {
-        transform: 'rotate(0deg)',
+        transform: "rotate(0deg)",
       },
     },
     {
       props: ({ expand }) => !!expand,
       style: {
-        transform: 'rotate(180deg)',
+        transform: "rotate(180deg)",
       },
     },
   ],
 }));
 
-
-
 const Posts = () => {
-
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4 }}>
@@ -75,7 +73,48 @@ const Posts = () => {
 
         {/* Main Feed */}
         <Grid item xs={12} md={6}>
-          <Card sx={{ maxWidth: 345 }}>
+          <Card className="mb-4" sx={{ p: 2 }}>
+          <CardHeader
+              avatar={
+                <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                  R
+                </Avatar>
+              }
+              action={
+                <Paper 
+                 className="rounded-5 border border-lightblack" 
+                 component="form" 
+                 sx={{ p: "2px 4px", 
+                 display: "flex", 
+                 alignItems: "center", 
+                 width: 400, 
+                 bgcolor:"#ffff",
+                 color:"#000"
+                 }}
+                >
+
+                <InputBase
+                  className=""
+                  sx={{ ml: 1, flex: 1,}}
+                  placeholder="Start a post, try writting with AI"
+                 
+                />
+
+                <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+                <IconButton
+                  color="primary"
+                  sx={{ p: "10px" }}
+                  aria-label="directions"
+                >
+
+                </IconButton>
+              </Paper>
+              }
+            />
+            
+          </Card>
+
+          <Card sx={{ p: 2 }}>
             <CardHeader
               avatar={
                 <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
