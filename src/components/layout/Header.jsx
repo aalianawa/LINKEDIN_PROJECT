@@ -1,23 +1,22 @@
-import React from "react";
-import { styled } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
-import Badge from "@mui/material/Badge";
-import Container from "@mui/material/Container";
-import SearchIcon from "@mui/icons-material/Search";
-import HomeIcon from "@mui/icons-material/Home";
-import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
-import PeopleIcon from "@mui/icons-material/People";
-import MessageIcon from '@mui/icons-material/Message';
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import AppsIcon from "@mui/icons-material/Apps";
-import PostAddIcon from "@mui/icons-material/PostAdd";
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  CssBaseline,
+  IconButton,
+  InputBase,
+  styled,
+  Toolbar,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import React, { useState } from "react";
+import MenuIcon from "@mui/icons-material/Menu";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import HeaderComponent from "./header-component/HeaderComponent";
+import SearchIcon from "@mui/icons-material/Search";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -46,119 +45,86 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   width: "100%",
 }));
 
+const navItems = [
+  "Home",
+  "My Network",
+  "Jobs",
+  "Messages",
+  "Notifications",
+  "Me",
+];
+
 const Header = () => {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const theme = useTheme();
+  const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md")); // Detect tablet screens
+
+  const handleDrawerToggle = () => {
+    setMobileOpen((prevState) => !prevState);
+  };
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        position="static"
-        sx={{ backgroundColor: "#ffffff", color: "#000" }}
-      >
-        <Container>
-          <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-              <LinkedInIcon sx={{ fontSize: 40, color: "#0077B5" }} />
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ "aria-label": "search" }}
-                />
-              </Search>
-            </Box>
-            <Box sx={{ display: "", alignItems: "center", gap: 2 }}>
+    <>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar component="nav" sx={{ backgroundColor: "#ffffff" }}>
+          <Container>
+            <Toolbar sx={{ justifyContent: "space-between" }}>
+              {/* Show MenuIcon for mobile & tablet */}
               <IconButton
-                
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
                 sx={{
-                  // display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
+                  mr: 2,
+                  display: { xs: "block", sm: "block", md: "none" },
                 }}
               >
-                <HomeIcon sx={{ fontSize: 28 }} />
-                <Typography variant="caption">Home</Typography>
+                <MenuIcon />
               </IconButton>
-              <IconButton
-                sx={{
-                  // display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-                
+
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{ display: "flex", alignItems: "center" }}
               >
-                <PeopleIcon />
-                <Typography variant="caption">My Network</Typography>
-              </IconButton>
-              <IconButton
-                sx={{
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-                
-              >
-                <BusinessCenterIcon />
-                <Typography variant="caption">Jobs</Typography>
-              </IconButton>
-              <IconButton
-                sx={{
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-                
-              >
-                <MessageIcon />
-                {/* <Badge className="" badgeContent={4} color="error" /> */}
-                <Typography variant="caption">Messaging</Typography>
-              </IconButton>
-              <IconButton
-                sx={{
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-                
-              >
-                <NotificationsIcon />
-                <Badge badgeContent={5} color="error" />
-                <Typography variant="caption">Notifications</Typography>
-              </IconButton>
-              <IconButton
-                sx={{
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-                
-              >
-                <AccountCircle />
-                <Typography variant="caption">Me</Typography>
-              </IconButton>
-              <IconButton
-                 className="ms-4"
-                sx={{
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-                
-              >
-                <AppsIcon />
-                <Typography variant="caption">For Business</Typography>
-              </IconButton>
-              <IconButton 
-           
-                sx={{
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-                
-              >
-                <PostAddIcon />
-                <Typography variant="caption">Post a job</Typography>
-              </IconButton>
-            </Box>
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </Box>
+                <LinkedInIcon sx={{ fontSize: 40, color: "#0077B5" }} />
+                <Search sx={{ color: "#000" }}>
+                  <SearchIconWrapper>
+                    <SearchIcon />
+                  </SearchIconWrapper>
+                  <StyledInputBase
+                    placeholder="Search…"
+                    inputProps={{ "aria-label": "search" }}
+                  />
+                </Search>
+              </Typography>
+
+              {/* Show nav items only on desktop (hide on mobile & tablet) */}
+              <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+                {navItems.map((item) => (
+                  <Button key={item} sx={{ color: "#000" }}>
+                    {item}
+                  </Button>
+                ))}
+              </Box>
+            </Toolbar>
+          </Container>
+        </AppBar>
+
+        {/* Drawer for Mobile & Tablet */}
+        <nav>
+          <HeaderComponent
+            navItems={navItems}
+            handleDrawerToggle={handleDrawerToggle}
+            mobileOpen={mobileOpen}
+            isTablet={isTablet}
+          />
+        </nav>
+      </Box>
+    </>
   );
 };
 
