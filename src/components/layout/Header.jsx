@@ -17,6 +17,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import HeaderComponent from "./header-component/HeaderComponent";
 import SearchIcon from "@mui/icons-material/Search";
+import { Outlet } from "react-router-dom";
+// import Pages from "../HomePage/Pages";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,7 +60,7 @@ const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const theme = useTheme();
-  const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md")); // Detect tablet screens
+  const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -71,7 +73,6 @@ const Header = () => {
         <AppBar component="nav" sx={{ backgroundColor: "#ffffff" }}>
           <Container>
             <Toolbar sx={{ justifyContent: "space-between" }}>
-              {/* Show MenuIcon for mobile & tablet */}
               <IconButton
                 color="inherit"
                 aria-label="open drawer"
@@ -101,8 +102,6 @@ const Header = () => {
                   />
                 </Search>
               </Typography>
-
-              {/* Show nav items only on desktop (hide on mobile & tablet) */}
               <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
                 {navItems.map((item) => (
                   <Button key={item} sx={{ color: "#000" }}>
@@ -113,8 +112,6 @@ const Header = () => {
             </Toolbar>
           </Container>
         </AppBar>
-
-        {/* Drawer for Mobile & Tablet */}
         <nav>
           <HeaderComponent
             navItems={navItems}
@@ -124,6 +121,10 @@ const Header = () => {
           />
         </nav>
       </Box>
+      {/* <Box>
+        <Pages/>
+      </Box> */}
+      <Outlet />
     </>
   );
 };

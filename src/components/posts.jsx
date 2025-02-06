@@ -14,14 +14,15 @@ import {
   // MenuItem,
   TextField,
   Button,
-  Link,
+  // Link,
 } from "@mui/material";
 import img from "../assets/Capture.PNG";
-import profile from "../assets/1737113951052.jpg"
+import profile from "../assets/1737113951052.jpg";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import SendIcon from "@mui/icons-material/Send";
 import EmojiPicker from "emoji-picker-react";
+import { Link } from "react-router-dom";
 
 const Posts = () => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -48,19 +49,31 @@ const Posts = () => {
       <Grid container spacing={3}>
         {/* Left Sidebar */}
         <Grid item xs={12} md={3}>
-          <Card sx={{ p: 2, borderRadius: "16px" }}>
-            <img src={profile} width={70} className="rounded-5 mt-5" />
-            <Typography variant="h6" align="start" mt={5}>
-              Aalia Nawaz
-            </Typography>
-            <Typography mt={1} mb={1} variant="body2" align="start" sx={{color:"#000000E6"}}>
-              Frontend Developer | JavaScript | Bootstrap5 | React.js | Next.js
-            </Typography>
-            <Link href="#" sx={{textDecoration: 'none', fontSize: "14px", color:"#00000099"}}>Khairpur District, Sindh</Link>
-            <Typography sx={{display:"flex"}}>
-
-            </Typography>
-          </Card>
+          <Link to="/profile" style={{ textDecoration: "none" }}>
+            <Card sx={{ p: 2, borderRadius: "16px" }}>
+              <img
+                src={profile}
+                width={70}
+                alt="img"
+                className="rounded-5 mt-5"
+              />
+              <Typography variant="h6" align="start" mt={5}>
+                Aalia Nawaz
+              </Typography>
+              <Typography
+                mt={1}
+                mb={1}
+                variant="body2"
+                align="start"
+                sx={{ color: "#000000E6" }}
+              >
+                Frontend Developer | JavaScript | Bootstrap5 | React.js |
+                Next.js
+              </Typography>
+              Khairpur District, Sindh
+              <Typography sx={{ display: "flex" }}></Typography>
+            </Card>
+          </Link>
         </Grid>
 
         {/* Main Feed */}
